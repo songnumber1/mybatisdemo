@@ -11,6 +11,16 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     
+    private int annotationData = 0;
+
+    public void SetAnnotationData(int i) {
+        this.annotationData = i;
+    }
+
+    public int GetAnnotationData() {
+        return this.annotationData;
+    }
+
     @Autowired
     private UserDao userDao;
 
