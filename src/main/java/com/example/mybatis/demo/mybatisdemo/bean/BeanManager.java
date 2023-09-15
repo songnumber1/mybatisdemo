@@ -22,6 +22,7 @@ public class BeanManager {
         return obj;
     }
     
+    @SuppressWarnings("unchecked")
     @Bean
     @ConditionalOnProperty(value = "bean.config.dynamictypebean.enable", havingValue = "true", matchIfMissing = false)
     public DynamicBeanTypeService<DynamicBeanTypeGenericVo> GetDynamicTypeBean()
