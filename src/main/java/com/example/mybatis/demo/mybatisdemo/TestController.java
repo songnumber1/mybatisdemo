@@ -10,12 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mybatis.demo.mybatisdemo.bean.BeanManager;
+import com.example.mybatis.demo.mybatisdemo.bean.DynamicBeanTypeGenericVo;
 import com.example.mybatis.demo.mybatisdemo.sample.User;
 import com.example.mybatis.demo.mybatisdemo.sample.UserService;
 
@@ -25,6 +24,26 @@ public class TestController {
     @Autowired
     private UserService userService;
 
+    // private MyDynamicBean DynamicBean;
+    @Autowired
+    BeanManager beanManager;
+
+    @GetMapping("/dynamicBeanTest/{data}")
+    public String dynamicBeanTest(@PathVariable String data)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        return beanManager.GetDynamicBean().CallMethod(data);
+    }
+
+    @GetMapping("/dynamicBeanTypeTest/{data}")
+    public String dynamicBeanTypeTest(@PathVariable String data)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+
+        DynamicBeanTypeGenericVo dynamicBenTypeGenericVo = new DynamicBeanTypeGenericVo();
+        dynamicBenTypeGenericVo.setData(data);
+
+        return beanManager.GetDynamicTypeBean().CallMethod(data, dynamicBenTypeGenericVo);
+    }
+    
     @GetMapping("/setAnnotation/{data}")
     public void setAnnotation(@PathVariable int data) {
         System.out.println("setAnnotation Before : " + userService.GetAnnotationData());
