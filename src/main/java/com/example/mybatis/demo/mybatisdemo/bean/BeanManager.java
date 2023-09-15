@@ -1,5 +1,7 @@
 package com.example.mybatis.demo.mybatisdemo.bean;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +17,8 @@ public class BeanManager {
 
     @Bean
     @ConditionalOnProperty(value = "bean.config.dynamicbean.enable", havingValue = "true", matchIfMissing = false)
-    public DynamicBeanService GetDynamicBean()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        DynamicBeanService obj = (DynamicBeanService) Class.forName(dynamicBean).newInstance();
+    public DynamicBeanService GetDynamicBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+        DynamicBeanService obj = (DynamicBeanService) Class.forName(dynamicBean).getDeclaredConstructor().newInstance();
 
         return obj;
     }
@@ -25,10 +26,9 @@ public class BeanManager {
     @SuppressWarnings("unchecked")
     @Bean
     @ConditionalOnProperty(value = "bean.config.dynamictypebean.enable", havingValue = "true", matchIfMissing = false)
-    public DynamicBeanTypeService<DynamicBeanTypeGenericVo> GetDynamicTypeBean()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public DynamicBeanTypeService<DynamicBeanTypeGenericVo> GetDynamicTypeBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
         DynamicBeanTypeService<DynamicBeanTypeGenericVo> obj = (DynamicBeanTypeService<DynamicBeanTypeGenericVo>) Class
-                .forName(dynamicTypeBean).newInstance();
+                .forName(dynamicTypeBean).getDeclaredConstructor().newInstance();
 
         return obj;
     }

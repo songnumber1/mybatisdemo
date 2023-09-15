@@ -1,5 +1,6 @@
 package com.example.mybatis.demo.mybatisdemo;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,13 +31,14 @@ public class TestController {
 
     @GetMapping("/dynamicBeanTest/{data}")
     public String dynamicBeanTest(@PathVariable String data)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+            NoSuchMethodException, SecurityException, ClassNotFoundException {
         return beanManager.GetDynamicBean().CallMethod(data);
     }
 
     @GetMapping("/dynamicBeanTypeTest/{data}")
     public String dynamicBeanTypeTest(@PathVariable String data)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 
         DynamicBeanTypeGenericVo dynamicBenTypeGenericVo = new DynamicBeanTypeGenericVo();
         dynamicBenTypeGenericVo.setData(data);
