@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mybatis.demo.mybatisdemo.Management.Factory.TestFactory;
 import com.example.mybatis.demo.mybatisdemo.Management.Manager.TestManager;
+import com.example.mybatis.demo.mybatisdemo.XmlDynamicBean.MyCalculator;
 import com.example.mybatis.demo.mybatisdemo.XmlDynamicBean.XmlDynamicConfig;
 import com.example.mybatis.demo.mybatisdemo.bean.BeanManager;
 import com.example.mybatis.demo.mybatisdemo.bean.DynamicBeanTypeGenericVo;
@@ -29,7 +30,6 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    // private MyDynamicBean DynamicBean;
     @Autowired
     BeanManager beanManager;
 
@@ -44,15 +44,20 @@ public class TestController {
 
     @GetMapping("/dynamicXmlBeanTest/{data}")
     public String dynamicXmlBeanTest(@PathVariable String data) {
-        xmlDynamicConfig.getMyCalculator().plus();
+        MyCalculator mClass = (MyCalculator) xmlDynamicConfig.getBean(MyCalculator.class,
+                xmlDynamicConfig.getMycalculator());
         
-        xmlDynamicConfig.getMyCalculator().setFirstNum(1);
-        xmlDynamicConfig.getMyCalculator().setSecondNum(2);
+        int firstNum = mClass.getFirstNum();
+        int secondNum = mClass.getSecondNum();
+
+        mClass.setFirstNum(firstNum * 2);
+        mClass.setSecondNum(secondNum * 2);
+
+        mClass.plus();
 
         return "dynamicXmlBeanTest : data";
     }
     
-
     @GetMapping("/dynamicBeanFactoryTest/{data}")
     public String dynamicBeanFactoryTest(@PathVariable String data) throws BeansException, IllegalStateException, ClassNotFoundException{
         TestManager testManager = (TestManager) context.getBeanFactory().getBean(testFactory.getManagerBeanName(),

@@ -22,8 +22,6 @@ public class TestProperties implements InitializingBean {
 
     public void initMethod() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
         System.out.println("initMethod item : " + item);
-
-        // testFactory.createManager();
     }
 
     @PostConstruct

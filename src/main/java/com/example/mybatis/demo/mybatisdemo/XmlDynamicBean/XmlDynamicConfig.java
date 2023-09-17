@@ -1,43 +1,28 @@
 package com.example.mybatis.demo.mybatisdemo.XmlDynamicBean;
 
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Configuration
 @Data
-public class XmlDynamicConfig implements InitializingBean {
-    private MyCalculator myCalculator;
-    
+@EqualsAndHashCode(callSuper=false)
+@Configuration
+@ConfigurationProperties(prefix = "bean.management.xml.properties")
+public class XmlDynamicConfig extends XmlDynamicConfigBase {
+    private String mycalculator;
+
+    private String test;
+
     @Override
     public void afterPropertiesSet() throws Exception {
-        String configLocation = "classpath:applicationContext.xml";
-        AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+        // 싱글톤으로 객체 생성되지만 this.context == null 방어 코드
+        if (this.context == null) {
+            String configLocation = "classpath:applicationContext.xml";
 
-        this.myCalculator = getMyCalculatorBean("myCalculator");
-        ctx.close();
-    }
-    
-    @SuppressWarnings("unchecked")
-    public <T> T getBean(T t, String name) {
-        String configLocation = "classpath:applicationContext.xml";
-        AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
-
-        ctx.close();
-
-        return (T) ctx.getBean(name, t);
-    }
-
-    public MyCalculator getMyCalculatorBean(String name) {
-        String configLocation = "classpath:applicationContext.xml";
-        AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
-        MyCalculator myCalculator = (MyCalculator) ctx.getBean(name, MyCalculator.class);
-        
-        ctx.close();
-
-        return myCalculator;
+            this.context = new ClassPathXmlApplicationContext(configLocation);
+        }
     }
 }
