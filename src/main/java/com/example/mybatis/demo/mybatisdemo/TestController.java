@@ -7,18 +7,22 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mybatis.demo.mybatisdemo.Management.Factory.TestFactory;
+import com.example.mybatis.demo.mybatisdemo.Management.Manager.TestManager;
+import com.example.mybatis.demo.mybatisdemo.XmlDynamicBean.XmlDynamicConfig;
 import com.example.mybatis.demo.mybatisdemo.bean.BeanManager;
 import com.example.mybatis.demo.mybatisdemo.bean.DynamicBeanTypeGenericVo;
 import com.example.mybatis.demo.mybatisdemo.sample.User;
 import com.example.mybatis.demo.mybatisdemo.sample.UserService;
-
 
 @RestController
 public class TestController {
@@ -29,10 +33,37 @@ public class TestController {
     @Autowired
     BeanManager beanManager;
 
+    @Autowired
+    ConfigurableApplicationContext context;
+
+    @Autowired
+    TestFactory testFactory;
+
+    @Autowired
+    XmlDynamicConfig xmlDynamicConfig;
+
+    @GetMapping("/dynamicXmlBeanTest/{data}")
+    public String dynamicXmlBeanTest(@PathVariable String data) {
+        xmlDynamicConfig.getMyCalculator().plus();
+        
+        xmlDynamicConfig.getMyCalculator().setFirstNum(1);
+        xmlDynamicConfig.getMyCalculator().setSecondNum(2);
+
+        return "dynamicXmlBeanTest : data";
+    }
+    
+
+    @GetMapping("/dynamicBeanFactoryTest/{data}")
+    public String dynamicBeanFactoryTest(@PathVariable String data) throws BeansException, IllegalStateException, ClassNotFoundException{
+        TestManager testManager = (TestManager) context.getBeanFactory().getBean(testFactory.getManagerBeanName(),
+                Class.forName(testFactory.getManagerBean()));
+
+        return testManager.CallMethod(data);
+    }
+    
     @GetMapping("/dynamicBeanTest/{data}")
     public String dynamicBeanTest(@PathVariable String data)
-            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-            NoSuchMethodException, SecurityException, ClassNotFoundException {
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{     
         return beanManager.GetDynamicBean().CallMethod(data);
     }
 
