@@ -2,6 +2,7 @@ package com.example.mybatis.demo.mybatisdemo.bean;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ public class BeanManager {
 
     @Bean
     @ConditionalOnProperty(value = "bean.config.dynamicbean.enable", havingValue = "true", matchIfMissing = false)
+    @Qualifier("dynamicbean1")
     public DynamicBeanService GetDynamicBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
         DynamicBeanService obj = (DynamicBeanService) Class.forName(dynamicBean).getDeclaredConstructor().newInstance();
 
