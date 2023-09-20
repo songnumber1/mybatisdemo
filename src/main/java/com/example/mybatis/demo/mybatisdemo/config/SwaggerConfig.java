@@ -19,8 +19,14 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    @Value("${bearer.authentication.header.key:Authentication}")
-    private String bearerKey = "Authentication";
+    @Value("${bearer.authentication.header.name:API_TICKET}")
+    private String bearerName = "API_TICKET";
+
+    @Value("${bearer.authentication.header.key:bearer}")
+    private String bearerKey = "bearer";
+
+    @Value("${bearer.authentication.header.value:E687D21D-F035-4F66-BB93-A336B8B267D0}")
+    private String bearerValue = "E687D21D-F035-4F66-BB93-A336B8B267D0";
 
     @Bean
     public Docket api() {
@@ -49,8 +55,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey(bearerKey, "Bearer", "header");
-        // return new ApiKey("JWT", "jwt", "header");
+        return new ApiKey(bearerName, bearerKey, "header");
     }
 
     private SecurityContext securityContext() {
@@ -64,9 +69,9 @@ public class SwaggerConfig {
     }
 
     List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("bearer", "bearer");
+        AuthorizationScope authorizationScope = new AuthorizationScope(bearerName, bearerKey);
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("Authentication", authorizationScopes));
+        return Arrays.asList(new SecurityReference(bearerName, authorizationScopes));
     }
 }

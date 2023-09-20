@@ -10,29 +10,26 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApiKeyFilter implements Filter {
 
-    @Value("${bearer.authentication.header.key:Authentication}")
-    private String bearerKey = "Authentication";
+    private String bearerKey = "API_TICKET";
 
-    private final String TEST_KEY = "bearer";
+    private final String BEARER_VALUE = "E687D21D-F035-4F66-BB93-A336B8B267D0";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("필터1");
-        // chain.doFilter(request, response);
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String key = httpRequest.getHeader(bearerKey);
 
-        if (!TEST_KEY.equals(key)) {
+        if (!BEARER_VALUE.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             httpResponse.getWriter()
                     .write(mapper.writeValueAsString("The API key was not found or not the expected value."));
