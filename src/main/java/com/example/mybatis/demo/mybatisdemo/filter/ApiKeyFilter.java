@@ -29,13 +29,13 @@ public class ApiKeyFilter implements Filter {
 
         String key = httpRequest.getHeader(bearerKey);
 
-        if (!BEARER_VALUE.equals(key)) {
-            ObjectMapper mapper = new ObjectMapper();
-            httpResponse.getWriter()
-                    .write(mapper.writeValueAsString("The API key was not found or not the expected value."));
-            httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-            return;
-        }
+        // if (!BEARER_VALUE.equals(key)) {
+        //     ObjectMapper mapper = new ObjectMapper();
+        //     httpResponse.getWriter()
+        //             .write(mapper.writeValueAsString("The API key was not found or not the expected value."));
+        //     httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        //     return;
+        // }
 
         chain.doFilter(request, response);
     }
