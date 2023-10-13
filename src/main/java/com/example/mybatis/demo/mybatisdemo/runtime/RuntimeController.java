@@ -9,17 +9,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SuppressWarnings("rawtypes")
 public class RuntimeController {
-    private final RuntimeService runtimeService1;
+    // 동적 bean 설정 시 아래와 같이 방법 2가지 중 하나로 써야한다.
+    // @Qualifer은 @Value가 적용되지 않는다.
 
-    private final RuntimeService runtimeService2;    
+    // 방법 1
+    @Autowired
+    @Qualifier("runtime-service1")
+    private RuntimeService runtimeService1;
 
     @Autowired
-    public RuntimeController(@Qualifier("runtime-service1") RuntimeService runtimeService1, @Qualifier("runtime-service2") RuntimeService runtimeService2) {
-        this.runtimeService1 = runtimeService1;
-        this.runtimeService2 = runtimeService2;
-    }
-    
-    
+    @Qualifier("runtime-service2")
+    private RuntimeService runtimeService2;
+
+    // ==================================================================
+
+    // 방법 2
+    // private final RuntimeService runtimeService1;
+
+    // private final RuntimeService runtimeService2;
+
+    // public RuntimeController(@Qualifier("runtime-service1")  RuntimeService runtimeService1, @Qualifier("runtime-service2")  RuntimeService runtimeService2) {
+    //     this.runtimeService1 = runtimeService1;
+    //     this.runtimeService2 = runtimeService2;
+    // }
+    // ==================================================================
+
     @GetMapping("/api/v1/runtime/service1/{data}")
     @SuppressWarnings("unchecked")
     public String RuntimeServiceCallMethod1(@PathVariable String data) {

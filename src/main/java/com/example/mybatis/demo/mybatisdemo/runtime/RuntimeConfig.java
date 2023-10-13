@@ -30,11 +30,13 @@ public class RuntimeConfig {
             String serviceType = item.getType();
 
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClassName(serviceName);
-            beanDefinition.setFactoryBeanName(serviceName);
             beanDefinition.setBeanClass(Class.forName(serviceType));
             beanDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
-            beanDefinition.addQualifier(new AutowireCandidateQualifier(serviceName));
+
+            // 상관없는 코드
+            // beanDefinition.setBeanClassName(serviceName);
+            // beanDefinition.setFactoryBeanName(serviceName);
+            // beanDefinition.addQualifier(new AutowireCandidateQualifier(serviceName));
 
             // beanDefinition.setPropertyValues(propertyValues);
 
