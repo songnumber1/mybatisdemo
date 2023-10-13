@@ -10,9 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApiKeyFilter implements Filter {
 
