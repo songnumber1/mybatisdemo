@@ -22,3 +22,6 @@ bean:
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimeServiceImpl1
     - name: runtime-service2
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimeServiceImpl2
+
+server:
+  port: 8081
