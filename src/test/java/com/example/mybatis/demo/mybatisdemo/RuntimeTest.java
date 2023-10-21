@@ -1,24 +1,38 @@
 package com.example.mybatis.demo.mybatisdemo;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.mybatis.demo.mybatisdemo.runtime.RuntimeService;
 
-@SpringBootTest
-@Import({RuntimeTestConfig.class})
+@ExtendWith(MockitoExtension.class)
+// @Import({RuntimeTestConfig.class})
 public class RuntimeTest {
-    @Autowired
+    
+    @Mock
+    @SuppressWarnings("rawtypes")
     private RuntimeService runtimeService;
 
     @Test
-	void RuntimeServiceImpl1CallMethod() {
-		this.runtimeService.CallMethod("");
-		System.out.println("111111");
+    @DisplayName("RuntimeServiceImpl1CallMethod")
+    @SuppressWarnings("unchecked")
+    void RuntimeServiceImpl1CallMethod() {
+        // given
+        var returnData = "RumtimeServiceImpl1.CallMethod()";
 
-		Assert.isTrue(true);
+        // when
+        when(runtimeService.CallMethod("")).thenReturn("RumtimeServiceImpl1.CallMethod()");
+
+        // stub
+        String result = this.runtimeService.CallMethod("");
+
+        // then
+        assertTrue(returnData == result);
 	}
 }

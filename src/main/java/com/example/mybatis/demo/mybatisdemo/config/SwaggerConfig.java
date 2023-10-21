@@ -58,6 +58,7 @@ public class SwaggerConfig {
         return new ApiKey(bearerName, bearerKey, "header");
     }
 
+    @Deprecated
     private SecurityContext securityContext() {
         return springfox
                 .documentation
