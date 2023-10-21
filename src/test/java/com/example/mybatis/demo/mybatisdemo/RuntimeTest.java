@@ -24,9 +24,9 @@ public class RuntimeTest {
     }
     
     @Test
-    @DisplayName("MockitoRuntimeServiceImpl1CallMethod")
+    @DisplayName("RuntimeServiceImpl1CallMethod")
     @SuppressWarnings("unchecked")
-    void MockitoRuntimeServiceImpl1CallMethod() {
+    void RuntimeServiceImpl1CallMethod() {
         String result = "RumtimeServiceImpl1.CallMethod() : 1234";
 
         String returnData = this.runtimeService.CallMethod("1234");
