@@ -14,8 +14,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 // http://localhost:8080/swagger-ui/index.html
 @RestController
 @RequestMapping("/api/v1/swagger")
-@Api(tags = "SwaggerController")
-public class SwaggerController {
+@Api(tags = "SwaggerAPIV1Controller")
+public class SwaggerAPIV1Controller {
 
     @Operation(summary = "요약", description = "설명")
     @ApiResponses({
@@ -25,6 +25,6 @@ public class SwaggerController {
     @GetMapping("/{data}")
     public String home(@Parameter(description = "파라미터 설명", example = "1") @PathVariable String data) {
     
-        return "SwaggerController : " + data;
+        return "SwaggerAPIV1Controller : " + data;
     }
 }
