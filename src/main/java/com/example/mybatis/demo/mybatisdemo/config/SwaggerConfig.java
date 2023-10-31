@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
@@ -25,17 +26,28 @@ public class SwaggerConfig {
     @Value("${bearer.authentication.header.key:bearer}")
     private String bearerKey = "bearer";
 
-    // @Value("${bearer.authentication.header.value:E687D21D-F035-4F66-BB93-A336B8B267D0}")
-    // private String bearerValue = "E687D21D-F035-4F66-BB93-A336B8B267D0";
+    @Bean
+    public Docket swaggerApi1() {
+        return this.api("Swagger 1", PathSelectors.ant("/api/v1/swagger/**"));
+    }
 
     @Bean
-    public Docket api() {
+    public Docket swaggerApi2() {
+        return this.api("Swagger 2", PathSelectors.ant("/api/v2/swagger/**"));
+    }
+
+    @Bean
+    public Docket allApi() {
+        return this.api("전체", PathSelectors.ant("/api/**"));
+    }
+
+    public Docket api(String groupName, Predicate<String> path) {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("my swagger")
+                .groupName(groupName)
                 .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.mybatis.demo.mybatisdemo"))
-                .paths(PathSelectors.ant("/api/**"))
+                .paths(path)
                 .build()
                 .apiInfo(metaData())
                 .securityContexts(Arrays.asList(securityContext()))
