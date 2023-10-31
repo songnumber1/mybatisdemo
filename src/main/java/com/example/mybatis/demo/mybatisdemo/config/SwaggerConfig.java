@@ -25,12 +25,13 @@ public class SwaggerConfig {
     @Value("${bearer.authentication.header.key:bearer}")
     private String bearerKey = "bearer";
 
-    @Value("${bearer.authentication.header.value:E687D21D-F035-4F66-BB93-A336B8B267D0}")
-    private String bearerValue = "E687D21D-F035-4F66-BB93-A336B8B267D0";
+    // @Value("${bearer.authentication.header.value:E687D21D-F035-4F66-BB93-A336B8B267D0}")
+    // private String bearerValue = "E687D21D-F035-4F66-BB93-A336B8B267D0";
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
+                .groupName("my swagger")
                 .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.mybatis.demo.mybatisdemo"))
