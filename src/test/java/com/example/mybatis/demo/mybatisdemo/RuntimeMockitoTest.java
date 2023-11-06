@@ -5,14 +5,10 @@ import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -24,6 +20,7 @@ import com.example.mybatis.demo.mybatisdemo.runtime.RuntimeService;
 @Import({RuntimeTestConfig.class})
 public class RuntimeMockitoTest {
     @Autowired
+    @SuppressWarnings("rawtypes")
     private RuntimeService runtimeService;
 
     @BeforeEach
@@ -32,7 +29,7 @@ public class RuntimeMockitoTest {
     
     @Test
     @DisplayName("MockitoRuntimeServiceImpl1CallMethod")
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "unused" })
     void MockitoRuntimeServiceImpl1CallMethod() {
         String result = this.runtimeService.CallMethod("1234");
 

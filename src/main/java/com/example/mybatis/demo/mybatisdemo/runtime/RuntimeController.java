@@ -2,9 +2,11 @@ package com.example.mybatis.demo.mybatisdemo.runtime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @SuppressWarnings("rawtypes")
@@ -20,6 +22,10 @@ public class RuntimeController {
     @Autowired
     @Qualifier("runtime-service2")
     private RuntimeService runtimeService2;
+
+    @Autowired
+    private RuntimeServiceDb runtimeServiceDb;
+
 
     // ==================================================================
 
@@ -44,5 +50,13 @@ public class RuntimeController {
     @SuppressWarnings("unchecked")
     public String RuntimeServiceCallMethod2(@PathVariable Integer data) {
         return runtimeService2.CallMethod(data);
+    }
+
+    @GetMapping("/api/v1/runtime/dbservice/{data}")
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<?> RuntimeServiceCallMethod3(@PathVariable Integer data) {
+        var result = runtimeServiceDb.CallMethod(data);
+
+        return ResponseEntity.ok(result);
     }
 }

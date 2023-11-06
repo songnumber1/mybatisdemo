@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class SwaggerInterceptor implements HandlerInterceptor {
     @Override
+    @SuppressWarnings("unused")
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         final String token = request.getHeader("jwt");
         

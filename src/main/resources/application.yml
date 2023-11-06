@@ -22,3 +22,5 @@ bean:
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimeServiceImpl1
     - name: runtime-service2
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimeServiceImpl2
+    - name: runtime-dbservice
+      type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimerServiceDbImpl1

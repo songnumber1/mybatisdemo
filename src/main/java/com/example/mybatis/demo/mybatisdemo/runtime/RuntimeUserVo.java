@@ -1,4 +1,4 @@
-package com.example.mybatis.demo.mybatisdemo.sample;
+package com.example.mybatis.demo.mybatisdemo.runtime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class RuntimeUserVo {
 	private long id;
 
 	private String username;
@@ -44,7 +44,7 @@ public class User {
 		return new ArrayList<>();
 	}
 
-	public User(long id, String username, String roles, boolean active, String email) {
+	public RuntimeUserVo(long id, String username, String roles, boolean active, String email) {
 		this.id = id;
 		this.username = username;
 		this.roles = roles;

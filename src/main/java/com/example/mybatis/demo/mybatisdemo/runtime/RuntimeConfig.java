@@ -1,11 +1,15 @@
 package com.example.mybatis.demo.mybatisdemo.runtime;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 
 import com.example.mybatis.demo.mybatisdemo.runtime.RuntimeProperties.Service;
 
@@ -19,6 +23,10 @@ public class RuntimeConfig {
 
     private final RuntimeProperties runtimeProperties;
 
+    @SuppressWarnings("rawtypes")
+    private RuntimeServiceDb runtimeServiceDb;
+
+    @SuppressWarnings({ "rawtypes", "unchecked"})
     public RuntimeConfig(ApplicationContext context, RuntimeProperties runtimeProperties) throws ClassNotFoundException {
         this.context = context;
         this.factory = (DefaultListableBeanFactory) ((ConfigurableApplicationContext) context).getBeanFactory();
@@ -34,6 +42,26 @@ public class RuntimeConfig {
 
             // factory에 bean 등록
             factory.registerBeanDefinition(serviceName, beanDefinition);
+
+            if (serviceName.equals("runtime-dbservice")) {
+                this.runtimeServiceDb = (RuntimeServiceDb) factory.getBean("runtime-dbservice");
+
+                var userList = runtimeServiceDb.CallMethod(null);
+
+                if (userList != null && userList.size() > 0) {
+                    var users = (List<RuntimeUserVo>)userList.get("users");
+
+                    if (!users.get(0).getEmail().equals("songnumber1@naver.com")) {
+                        try {
+                            throw new Exception(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                System.out.println(userList);
+            }
         }
     }
 }
