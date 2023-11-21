@@ -2,6 +2,7 @@ package com.example.mybatis.demo.mybatisdemo.runtime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,5 +59,24 @@ public class RuntimeController {
         var result = runtimeServiceDb.CallMethod(data);
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/axios/test/{data}")
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<?> RuntimeServiceCallAxios(@PathVariable Integer data) {
+        var result = runtimeServiceDb.CallMethod(data);
+
+        return ResponseEntity.ok(result);
+    }
+    
+    @GetMapping("/axios/test/error/{data}")
+    public ResponseEntity<?> RuntimeServiceErroCallAxios(@PathVariable Integer data) {
+        try {
+            String[] a = new String[1];
+            a[1] = "1";
+            return ResponseEntity.ok(a);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
