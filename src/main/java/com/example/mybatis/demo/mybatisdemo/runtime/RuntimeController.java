@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mybatis.demo.webp.WebpService;
+
 
 @RestController
 @SuppressWarnings("rawtypes")
@@ -78,5 +80,13 @@ public class RuntimeController {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Autowired
+    WebpService webpService;
+
+    @GetMapping("/api/v1/webp")
+    public String webpConvertBase64() {
+        return webpService.webpConvertBase64();
     }
 }

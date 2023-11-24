@@ -109,6 +109,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.zakgof</groupId>
+            <artifactId>webp4j</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
