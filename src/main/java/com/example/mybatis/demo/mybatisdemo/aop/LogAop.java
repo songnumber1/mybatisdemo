@@ -19,11 +19,18 @@ public class LogAop {
 		System.out.println(signatureStr + " 시작");
 		
 		try {
-			Object obj = joinpoint.proceed();  // 실행시 (클래스가 호출 된 시점)
-			
+			Object obj = joinpoint.proceed(); // 실행시 (클래스가 호출 된 시점)
+
 			return obj;
-			
-		} finally {
+		}
+		// catch (Exception e) {
+		// 	System.out.println(e.toString());
+		// 	System.out.println(signatureStr + " 오류");
+		// 	System.out.println("==========================================");
+
+		// 	return null;
+		// }
+		finally {
 			// System.currentTimeMillis() : 밀리세컨 단위의 시간
 			System.out.println("실행 후 : " + System.currentTimeMillis());
             System.out.println(signatureStr + " 종료");

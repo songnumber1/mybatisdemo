@@ -46,13 +46,22 @@ public class RuntimeController {
     @GetMapping("/api/v1/runtime/service1/{data}")
     @SuppressWarnings("unchecked")
     public String RuntimeServiceCallMethod1(@PathVariable String data) {
-        return runtimeService1.CallMethod(data);
+        try {
+            return runtimeService1.CallMethod(data);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @GetMapping("/api/v1/runtime/service2/{data}")
     @SuppressWarnings("unchecked")
     public String RuntimeServiceCallMethod2(@PathVariable Integer data) {
-        return runtimeService2.CallMethod(data);
+        try {
+            return runtimeService2.CallMethod(data);    
+        } catch (Exception e) {
+            throw e;
+        }
+        
     }
 
     @GetMapping("/api/v1/runtime/dbservice/{data}")
