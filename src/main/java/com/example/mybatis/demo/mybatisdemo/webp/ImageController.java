@@ -9,7 +9,7 @@ public class ImageController {
     @Autowired
     private final ImageService webpService;
 
-    private ImageController(ImageService webpService) {
+    public ImageController(ImageService webpService) {
         this.webpService = webpService;
     }
 

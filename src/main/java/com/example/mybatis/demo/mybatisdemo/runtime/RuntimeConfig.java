@@ -60,7 +60,7 @@ public class RuntimeConfig {
                     }
                 }
 
-                System.out.println(userList);
+                // System.out.println(userList);
             }
         }
     }
