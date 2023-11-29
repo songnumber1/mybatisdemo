@@ -23,6 +23,7 @@ public class LogAop {
 
 			return obj;
 		}
+		// 이부분 추가되면 RestControllerAdvice이 호출되지 않는다.
 		// catch (Exception e) {
 		// 	System.out.println(e.toString());
 		// 	System.out.println(signatureStr + " 오류");
