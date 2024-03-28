@@ -4,8 +4,7 @@
 >
 > postman에서 연결 확인 완료 <br> ```https://senslife.tistory.com/52```
 
-> html 연결 코드 <br>
-
+> html 연결 코드
 ```
  <!DOCTYPE html>
 <html>
