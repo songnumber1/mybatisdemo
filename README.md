@@ -2,7 +2,7 @@
 
 > Websocket 연결
 >> postman에서 연결 확인 완료
-```https://senslife.tistory.com/52```
+>>> 참고 url : https://senslife.tistory.com/52
 >> html 연결 코드
 ```
  <!DOCTYPE html>
