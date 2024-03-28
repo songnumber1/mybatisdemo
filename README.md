@@ -1,10 +1,9 @@
 # 2024-03-28
 
 > Websocket 연결
->
-> postman에서 연결 확인 완료 <br> ```https://senslife.tistory.com/52```
-
-> html 연결 코드
+>> postman에서 연결 확인 완료
+```https://senslife.tistory.com/52```
+>> html 연결 코드
 ```
  <!DOCTYPE html>
 <html>
