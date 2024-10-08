@@ -27,3 +27,4 @@ bean:
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimeServiceImpl2
     - name: runtime-dbservice
       type: com.example.mybatis.demo.mybatisdemo.runtime.RuntimerServiceDbImpl1
+ymlExistDefaultData: ymlExistDefaultData-1

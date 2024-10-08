@@ -24,7 +24,6 @@ public class tokenFilter implements Filter {
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String token = httpRequest.getHeader(bearerName);
 
