@@ -27,17 +27,20 @@ public class SwaggerConfig {
     private String bearerKey = "bearer";
 
     @Bean
-    public Docket swaggerApi1() {
+    public Docket swaggerApi() {
+        // /api/v1/swagger URL이 존재하는 Controller 대상
         return this.api("Swagger 1", PathSelectors.ant("/api/v1/swagger/**"));
     }
 
     @Bean
-    public Docket swaggerApi2() {
-        return this.api("Swagger 2", PathSelectors.ant("/api/v2/swagger/**"));
+    public Docket RuntimeApi() {
+        // /api/v1/runtime URL이 존재하는 Controller 대상
+        return this.api("Runtime Controller", PathSelectors.ant("/api/v1/runtime/**"));
     }
 
     @Bean
     public Docket allApi() {
+        // /api URL이 존재하는 Controller 대상
         return this.api("전체", PathSelectors.ant("/api/**"));
     }
 

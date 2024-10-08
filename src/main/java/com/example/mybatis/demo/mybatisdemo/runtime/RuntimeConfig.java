@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import com.example.mybatis.demo.mybatisdemo.runtime.RuntimeProperties.Service;
 
 @Configuration
-
 public class RuntimeConfig {
     @SuppressWarnings("unused")
     private final ApplicationContext context;
@@ -43,25 +42,26 @@ public class RuntimeConfig {
             // factory에 bean 등록
             factory.registerBeanDefinition(serviceName, beanDefinition);
 
-            if (serviceName.equals("runtime-dbservice")) {
-                this.runtimeServiceDb = (RuntimeServiceDb) factory.getBean("runtime-dbservice");
+            // db user 정보 출력
+            // if (serviceName.equals("runtime-dbservice")) {
+            //     this.runtimeServiceDb = (RuntimeServiceDb) factory.getBean("runtime-dbservice");
 
-                var userList = runtimeServiceDb.CallMethod(null);
+            //     var userList = runtimeServiceDb.CallMethod(null);
 
-                if (userList != null && userList.size() > 0) {
-                    var users = (List<RuntimeUserVo>)userList.get("users");
+            //     if (userList != null && userList.size() > 0) {
+            //         var users = (List<RuntimeUserVo>)userList.get("users");
 
-                    if (!users.get(0).getEmail().equals("songnumber1@naver.com")) {
-                        try {
-                            throw new Exception(HttpStatus.UNAUTHORIZED.getReasonPhrase());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+            //         if (!users.get(0).getEmail().equals("songnumber1@naver.com")) {
+            //             try {
+            //                 throw new Exception(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            //             } catch (Exception e) {
+            //                 e.printStackTrace();
+            //             }
+            //         }
+            //     }
 
-                // System.out.println(userList);
-            }
+            //     // System.out.println(userList);
+            // }
         }
     }
 }
